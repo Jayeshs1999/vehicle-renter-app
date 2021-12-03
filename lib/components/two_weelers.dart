@@ -5,9 +5,9 @@ import 'package:flutter/painting.dart';
 import 'package:rentify_all/pages/product_details.dart';
 
 class TwoWeelers extends StatefulWidget {
-  const TwoWeelers({
-    Key? key,
-  }) : super(key: key);
+  final product_category;
+  const TwoWeelers({Key? key, required this.product_category})
+      : super(key: key);
 
   @override
   _TwoWeelersState createState() => _TwoWeelersState();
@@ -99,6 +99,7 @@ class _TwoWeelersState extends State<TwoWeelers> {
               SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
           itemBuilder: (BuildContext context, int index) {
             return Single_prod(
+              product_category: widget.product_category,
               prod_name: product_list[index]["name"],
               prod_picture: product_list[index]["picture"],
               // prod_old_price: product_list[index]["old_price"],
@@ -112,12 +113,14 @@ class _TwoWeelersState extends State<TwoWeelers> {
 class Single_prod extends StatelessWidget {
   final prod_name;
   final prod_picture;
+  final product_category;
   // final prod_old_price;
   // final prod_price;
 
   Single_prod({
     this.prod_name,
     this.prod_picture,
+    this.product_category
     // this.prod_old_price,
     // this.prod_price
   });
@@ -144,6 +147,7 @@ class Single_prod extends StatelessWidget {
                         axisDirection: AxisDirection.left,
                         transitionDuration: Duration(milliseconds: 300),
                         child: ProductDetails(
+                          product_category: product_category,
                           product_details_name: prod_name,
                           product_details_picture: prod_picture,
                         )));

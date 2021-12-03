@@ -87,6 +87,22 @@ flutter:
     - images/cars/Tiagotata.png
     - images/cars/carlogo.jpg
 
+    - images/cars/rent_cars/ZAudi A5.png
+    - images/cars/rent_cars/Zaudi-car.png
+    - images/cars/rent_cars/Zbmw-320i.png
+    - images/cars/rent_cars/ZHonda Civic.png
+    - images/cars/rent_cars/ZHonda-accord exl.png
+    - images/cars/rent_cars/ZHyundai Santa Fe Sport.png
+    - images/cars/rent_cars/ZHyundai-Venue.png
+    - images/cars/rent_cars/ZHyundai Tucson 2020.png
+
+    - images/cars/rent_cars/Zkia sorento Lx.png
+    - images/cars/rent_cars/Zmahendra-verito-toreador.png
+    - images/cars/rent_cars/Zred_hundai.png
+    - images/cars/rent_cars/ZSilver Hyundai Kona.png
+
+
+
 
 #bikes
     - images/cars/bikes/bike1.jpg
@@ -97,7 +113,7 @@ flutter:
 
     - images/cars/bikes/cycle.jpg
     - images/cars/carLogo2.jpg
-    - images/cars/camera.jpg
+  
     - images/cars/rent_cars/bmwx1.jpeg
     #bikes
     - images/rent_bikes/hondasp125.jpg
@@ -111,6 +127,9 @@ flutter:
 
     #buses
     - images/buses/buslogo.png
+    - images/buses/bluebus.png
+    - images/buses/orange_bus.png
+    - images/buses/blue primium.png
 
     #commercial
     - images/commercial/tatamagic.png
@@ -137,6 +156,17 @@ flutter:
     - images/companylogo/Nissan.png
     - images/companylogo/Suzuki.png
     - images/companylogo/BMW.png
+#icon
+    - images/icon/admin.png
+    - images/icon/driver.png
+    - images/icon/login.png
+
+#developer
+    - images/developer/nakul.jpg    
+    - images/developer/sahil.jpg  
+    - images/developer/jayesh.jpg
+    - images/developer/logo.png
+    - images/developer/shivani.jpg
     
 
 
@@ -155,6 +185,7 @@ flutter:
     - family: Ephesis
       fonts:
         - asset: fonts/Ephesis-Regular.ttf
+       
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

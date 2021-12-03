@@ -14,6 +14,8 @@ import 'package:rentify_all/pages/login.dart';
 import 'package:rentify_all/privacy_policy/about_us.dart';
 import 'package:rentify_all/privacy_policy/contact_us.dart';
 import 'package:rentify_all/privacy_policy/privacy_policy.dart';
+import 'package:rentify_all/temporary/DashBoard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // class HomePage extends StatefulWidget {
 //   String email;
@@ -23,10 +25,7 @@ import 'package:rentify_all/privacy_policy/privacy_policy.dart';
 //   _HomePageState createState() => _HomePageState();
 // }
 
-class Categories extends StatelessWidget {
-  final ImagePicker picker = ImagePicker();
-  File? _image1;
-
+class Categories extends StatefulWidget {
   @override
   String email, name;
   Categories({
@@ -34,6 +33,30 @@ class Categories extends StatelessWidget {
     required this.email,
     required this.name,
   }) : super(key: key);
+
+  @override
+  State<Categories> createState() => _CategoriesState();
+}
+
+class _CategoriesState extends State<Categories> {
+  final ImagePicker picker = ImagePicker();
+
+  File? _image1;
+
+  String mail = "";
+  String name1 = "";
+
+//keep user sign in
+  Future getEmail() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    mail = preferences.getString("email")!;
+    // name1 = preferences.getString("name")!;
+  }
+
+  initState() {
+    super.initState();
+    getEmail();
+  }
 
   Widget build(BuildContext context) {
     //---------------------------------------------------------------------
@@ -74,37 +97,19 @@ class Categories extends StatelessWidget {
               fontSize: 40,
               fontWeight: FontWeight.bold),
         ),
-        actions: <Widget>[
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.search,
-                color: Colors.white,
-              )),
-          // IconButton(
-          //     onPressed: () {
-          //       Navigator.push(context, MaterialPageRoute(builder: (context) {
-          //         return Cart();
-          //       }));
-          //     },
-          //     icon: const Icon(
-          //       Icons.shopping_cart,
-          //       color: Colors.white,
-          //     )),
-        ],
       ),
       drawer: Drawer(
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
               accountName: Text(
-                this.name,
+                this.widget.name,
                 style: TextStyle(
                     fontFamily: "Ephesis",
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
-              accountEmail: Text(email),
+              accountEmail: Text(widget.email),
               // accountEmail: Text(email),
               currentAccountPicture: GestureDetector(
                 child: const CircleAvatar(
@@ -135,64 +140,9 @@ class Categories extends StatelessWidget {
                 ),
               ),
             ),
-            // InkWell(
-            //   onTap: () {},
-            //   child: const ListTile(
-            //     title: Text("My account"),
-            //     leading: Icon(
-            //       Icons.person,
-            //       color: Colors.red,
-            //     ),
-            //   ),
-            // ),
-            // InkWell(
-            //   onTap: () {},
-            //   child: const ListTile(
-            //     title: Text("My Orders"),
-            //     leading: Icon(
-            //       Icons.shopping_basket,
-            //       color: Colors.red,
-            //     ),
-            //   ),
-            // ),
-            // InkWell(
-            //   onTap: () {
-            //     Navigator.push(
-            //         context, MaterialPageRoute(builder: (context) => Cart()));
-            //   },
-            //   child: const ListTile(
-            //     title: Text("Shopping cart"),
-            //     leading: Icon(
-            //       Icons.shopping_cart,
-            //       color: Colors.red,
-            //     ),
-            //   ),
-            // ),
-            // InkWell(
-            //   onTap: () {
-            //     Navigator.push(
-            //         context, MaterialPageRoute(builder: (context) => Cart()));
-            //   },
-            //   child: const ListTile(
-            //     title: Text("Favorites"),
-            //     leading: Icon(
-            //       Icons.favorite,
-            //       color: Colors.red,
-            //     ),
-            //   ),
-            // ),
 
             Divider(),
-            // InkWell(
-            //   onTap: () {
-            //     Navigator.push(
-            //         context, MaterialPageRoute(builder: (context) => Cart()));
-            //   },
-            //   child: const ListTile(
-            //     title: Text("Setting"),
-            //     leading: Icon(Icons.settings),
-            //   ),
-            // ),
+
             InkWell(
               onTap: () {
                 Navigator.push(context,

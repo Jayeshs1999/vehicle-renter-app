@@ -9,9 +9,8 @@ import 'package:rentify_all/pages/product_details.dart';
 import 'package:rentify_all/pages/signup.dart';
 
 class Cars extends StatefulWidget {
-  const Cars({
-    Key? key,
-  }) : super(key: key);
+  final String product_category;
+  const Cars({Key? key, required this.product_category}) : super(key: key);
 
   @override
   _CarsState createState() => _CarsState();
@@ -50,35 +49,71 @@ class _CarsState extends State<Cars> {
       "price": "Available",
     },
     {
-      "name": "Suzuki",
-      "picture": "images/companylogo/Suzuki.png",
+      "name": "Honda Accord Exl",
+      "picture": "images/cars/rent_cars/ZHonda-accord exl.png",
       "old_price": "",
       "price": "Available",
     },
-    // {
-    //   "name": "BMW",
-    //   "picture": "images/companylogo/BMW.png",
-    //   "old_price": "",
-    //   "price": "Available",
-    // },
-    // {
-    //   "name": "D",
-    //   "picture": "images/cars/rent_cars/hondahrv.jpg",
-    //   "old_price": "",
-    //   "price": "Available",
-    // },
-    // {
-    //   "name": "E",
-    //   "picture": "images/cars/rent_cars/volvos60.jpeg",
-    //   "old_price": "",
-    //   "price": "Available",
-    // },
-    // {
-    //   "name": "F",
-    //   "picture": "images/cars/rent_cars/bmwx1.jpeg",
-    //   "old_price": "",
-    //   "price": "Available",
-    // },
+    {
+      "name": "Audi A5",
+      "picture": "images/cars/rent_cars/ZAudi A5.png",
+      "old_price": "",
+      "price": "Available",
+    },
+    {
+      "name": "Honda Civic",
+      "picture": "images/cars/rent_cars/ZHonda Civic.png",
+      "old_price": "",
+      "price": "Available",
+    },
+    {
+      "name": "BMW 320i",
+      "picture": "images/cars/rent_cars/Zbmw-320i.png",
+      "old_price": "",
+      "price": "Available",
+    },
+    {
+      "name": "Hyundai Santa Fe ",
+      "picture": "images/cars/rent_cars/ZHyundai Santa Fe Sport.png",
+      "old_price": "",
+      "price": "Available",
+    },
+    {
+      "name": "Hyundai Venue",
+      "picture": "images/cars/rent_cars/ZHyundai-Venue.png",
+      "old_price": "",
+      "price": "Available",
+    },
+    {
+      "name": "Hyundai Tucson ",
+      "picture": "images/cars/rent_cars/ZHyundai Tucson 2020.png",
+      "old_price": "",
+      "price": "Available",
+    },
+    {
+      "name": "Kia Sorento",
+      "picture": "images/cars/rent_cars/Zkia sorento Lx.png",
+      "old_price": "",
+      "price": "Available",
+    },
+    {
+      "name": "Mahendra Verito",
+      "picture": "images/cars/rent_cars/Zmahendra-verito-toreador.png",
+      "old_price": "",
+      "price": "Available",
+    },
+    {
+      "name": "Hyundai Kona",
+      "picture": "images/cars/rent_cars/ZSilver Hyundai Kona.png",
+      "old_price": "",
+      "price": "Available",
+    },
+    {
+      "name": "Red Hyundai",
+      "picture": "images/cars/rent_cars/Zred_hundai.png",
+      "old_price": "",
+      "price": "Available",
+    },
   ];
   @override
   Widget build(BuildContext context) {
@@ -96,6 +131,14 @@ class _CarsState extends State<Cars> {
               fontSize: 50,
               fontWeight: FontWeight.bold),
         ),
+        actions: <Widget>[
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.search,
+                color: Colors.white,
+              )),
+        ],
       ),
       body: GridView.builder(
           itemCount: product_list.length,
@@ -103,10 +146,9 @@ class _CarsState extends State<Cars> {
               SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
           itemBuilder: (BuildContext context, int index) {
             return Single_prod(
+              product_category: widget.product_category,
               prod_name: product_list[index]["name"],
               prod_picture: product_list[index]["picture"],
-              // prod_old_price: product_list[index]["old_price"],
-              // prod_price: product_list[index]["price"]
             );
           }),
     );
@@ -116,15 +158,9 @@ class _CarsState extends State<Cars> {
 class Single_prod extends StatelessWidget {
   final prod_name;
   final prod_picture;
-  // final prod_old_price;
-  // final prod_price;
+  final product_category;
 
-  Single_prod({
-    this.prod_name,
-    this.prod_picture,
-    // this.prod_old_price,
-    // this.prod_price
-  });
+  Single_prod({this.prod_name, this.prod_picture, this.product_category});
 
   @override
   Widget build(BuildContext context) {
@@ -147,6 +183,7 @@ class Single_prod extends StatelessWidget {
                         axisDirection: AxisDirection.left,
                         transitionDuration: Duration(milliseconds: 300),
                         child: ProductDetails(
+                          product_category: product_category,
                           product_details_name: prod_name,
                           product_details_picture: prod_picture,
                         )));

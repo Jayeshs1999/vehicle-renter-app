@@ -6,10 +6,7 @@ import 'package:rentify_all/components/buses.dart';
 import 'package:rentify_all/components/cars.dart';
 import 'package:rentify_all/components/commercial.dart';
 import 'package:rentify_all/components/two_weelers.dart';
-import 'package:rentify_all/models/product.dart';
-import 'package:rentify_all/pages/login.dart';
-import 'package:rentify_all/pages/product_details.dart';
-import 'package:rentify_all/pages/signup.dart';
+
 
 class Products extends StatefulWidget {
   const Products({
@@ -69,6 +66,7 @@ class _ProductsState extends State<Products> {
           return Single_prod(
             prod_name: product_list[index]["name"],
             prod_picture: product_list[index]["picture"],
+            product_category: product_list[index]["name"]
             // prod_old_price: product_list[index]["old_price"],
             // prod_price: product_list[index]["price"]
           );
@@ -79,12 +77,16 @@ class _ProductsState extends State<Products> {
 class Single_prod extends StatelessWidget {
   final prod_name;
   final prod_picture;
+  final product_category;
+
   // final prod_old_price;
   // final prod_price;
 
   Single_prod({
     this.prod_name,
     this.prod_picture,
+    this.product_category
+
     // this.prod_old_price,
     // this.prod_price
   });
@@ -107,7 +109,9 @@ class Single_prod extends StatelessWidget {
                       Navigator.of(context).push(CustomPageRoute(
                           axisDirection: AxisDirection.left,
                           transitionDuration: Duration(milliseconds: 300),
-                          child: Cars()));
+                          child: Cars(
+                            product_category: product_category,
+                          )));
                     } else if (prod_name == "Two Weelers") {
                       // Navigator.push(
                       //     context,
@@ -116,14 +120,14 @@ class Single_prod extends StatelessWidget {
                       Navigator.of(context).push(CustomPageRoute(
                           axisDirection: AxisDirection.left,
                           transitionDuration: Duration(milliseconds: 300),
-                          child: TwoWeelers()));
+                          child: TwoWeelers(product_category: product_category,)));
                     } else if (prod_name == "Buses") {
                       // Navigator.push(context,
                       //     MaterialPageRoute(builder: (context) => Buses()));
                       Navigator.of(context).push(CustomPageRoute(
                           axisDirection: AxisDirection.left,
                           transitionDuration: Duration(milliseconds: 300),
-                          child: Buses()));
+                          child: Buses(product_category: product_category,)));
                     } else if (prod_name == "Commercial") {
                       // Navigator.push(
                       //     context,

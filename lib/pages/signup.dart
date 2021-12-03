@@ -76,6 +76,7 @@ class _SignUpState extends State<SignUp> {
         await preferences.setString("username", documents[0]["username"]);
         await preferences.setString("photoUrl", documents[0]["profilePicture"]);
       }
+      await preferences.setString("name", _nameTextController.text);
       Fluttertoast.showToast(msg: "Login Successfull");
       setState(() {
         loading = false;

@@ -34,24 +34,24 @@ class _CommercialState extends State<Commercial> {
       "old_price": "",
       "price": "Available",
     },
-    {
-      "name": "Tiago",
-      "picture": "images/cars/Tiagotata.png",
-      "old_price": "",
-      "price": "Available",
-    },
-    {
-      "name": "Celerio",
-      "picture": "images/cars/celerio.png",
-      "old_price": "",
-      "price": "Available",
-    },
-    {
-      "name": "Suzuki",
-      "picture": "images/companylogo/Suzuki.png",
-      "old_price": "",
-      "price": "Available",
-    },
+    // {
+    //   "name": "Tiago",
+    //   "picture": "images/cars/Tiagotata.png",
+    //   "old_price": "",
+    //   "price": "Available",
+    // },
+    // {
+    //   "name": "Celerio",
+    //   "picture": "images/cars/celerio.png",
+    //   "old_price": "",
+    //   "price": "Available",
+    // },
+    // {
+    //   "name": "Suzuki",
+    //   "picture": "images/companylogo/Suzuki.png",
+    //   "old_price": "",
+    //   "price": "Available",
+    // },
     // {
     //   "name": "BMW",
     //   "picture": "images/companylogo/BMW.png",

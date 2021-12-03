@@ -6,8 +6,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rentify_all/pages/categories.dart';
 import 'package:rentify_all/pages/signup.dart';
+import 'package:rentify_all/temporary/AdminLogin.dart';
+import 'package:rentify_all/temporary/DashBoard.dart';
+import 'package:rentify_all/temporary/DriverLogin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'home.dart';
+
 import 'package:custom_page_route/custom_page_route.dart';
 
 class Login extends StatefulWidget {
@@ -38,6 +41,8 @@ class _LoginState extends State<Login> {
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _passwordTextController = TextEditingController();
   final _auth = FirebaseAuth.instance;
+
+  //keep user sign in
   late SharedPreferences preferences;
   bool loading = false;
   bool isLogedin = false;
@@ -112,6 +117,11 @@ class _LoginState extends State<Login> {
         await preferences.setString("username", documents[0]["username"]);
         await preferences.setString("photoUrl", documents[0]["profilePicture"]);
       }
+      //----------------------------------------------------------------
+      preferences.setString("email", user.email.toString());
+      preferences.setString("name", user.displayName.toString());
+      //----------------------------------------------------------------
+
       Fluttertoast.showToast(msg: "Login Successfull");
       setState(() {
         loading = false;
@@ -163,12 +173,12 @@ class _LoginState extends State<Login> {
                   //   height: double.infinity,
                   // ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 80.0),
+                    padding: const EdgeInsets.only(top: 0.0),
                     child: Container(
                         alignment: Alignment.topCenter,
                         child: Text("lets go",
                             style: TextStyle(
-                                fontSize: 100,
+                                fontSize: 80,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: "Ephesis",
                                 color: Colors.pinkAccent.shade100))
@@ -179,6 +189,14 @@ class _LoginState extends State<Login> {
                         // ),
                         ),
                   ),
+                  Padding(
+                      padding: const EdgeInsets.only(top: 130.0, left: 120),
+                      child: Image(
+                        image: AssetImage(
+                          "images/icon/login.png",
+                        ),
+                        height: 70,
+                      )),
                   // Container(
                   //   color: Colors.black12,
                   //   width: double.infinity,
@@ -375,6 +393,48 @@ class _LoginState extends State<Login> {
                                       width: 100,
                                     )),
                               ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AdminLogin()));
+                                      },
+                                      child: Text(
+                                        "Admin Login",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        DriverLogin()));
+                                          },
+                                          child: Text(
+                                            "Driver Login",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.deepOrange),
+                                          ))),
+                                ],
+                              ),
                             ],
                           ),
                         ),
@@ -392,7 +452,7 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -403,14 +463,21 @@ class _LoginState extends State<Login> {
   }
 
   void sigIn(String email, String password) async {
+    preferences = await SharedPreferences.getInstance();
     if (_formKey.currentState!.validate()) {
       await _auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((uid) => {
+                preferences.setString("email", email),
+                // preferences.setString("email", uname),
                 Fluttertoast.showToast(msg: "Login Successful"),
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) =>
-                        Categories(email: email, name: uname)))
+                //----------------------------------------------------------------
+                // preferences.setString("name", uname),
+                //----------------------------------------------------------------
+                Navigator.of(context)
+                    .pushReplacement(MaterialPageRoute(builder: (context) {
+                  return Categories(email: email, name: uname);
+                }))
                 //  HomePage(
                 //       name: uname,
                 //       email: email,
@@ -424,223 +491,3 @@ class _LoginState extends State<Login> {
 }
 
 
-//-----------------/////////////////////////////////////////////////-------------------------------------------
-
-// //import 'package:rentify_all/screens/signup.dart';
-// //import 'package:chat_app/widgets/common.dart';
-// //import 'package:chat_app/widgets/loading.dart';
-// import 'package:flutter/material.dart';
-// //import 'package:flutter_svg/svg.dart';
-// import 'package:provider/provider.dart';
-// import 'package:rentify_all/pages/signup.dart';
-// import 'package:rentify_all/provider.dart';
-// //import '../provider/user_provider.dart';
-
-// class Login extends StatefulWidget {
-//   @override
-//   _LoginState createState() => _LoginState();
-// }
-
-// class _LoginState extends State<Login> {
-//   final _formKey = GlobalKey<FormState>();
-//   final _key = GlobalKey<ScaffoldState>();
-
-//   TextEditingController _email = TextEditingController();
-//   TextEditingController _password = TextEditingController();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final user = Provider.of<UserProvider>(context);
-//     return Scaffold(
-//       key: _key,
-//       body:
-//           // body: user.status == Status.Authenticating
-//           //     ? Loading()
-//           //     :
-//           Stack(
-//         children: <Widget>[
-//           Container(
-//             child: Padding(
-//               padding: const EdgeInsets.all(0),
-//               child: Container(
-//                 decoration: BoxDecoration(
-//                   color: Colors.white,
-//                   borderRadius: BorderRadius.circular(16),
-//                   boxShadow: [
-//                     BoxShadow(
-//                       color: Colors.grey,
-//                       blurRadius:
-//                           20.0, // has the effect of softening the shadow
-//                     )
-//                   ],
-//                 ),
-//                 child: Form(
-//                     key: _formKey,
-//                     child: ListView(
-//                       children: <Widget>[
-//                         SizedBox(
-//                           height: 40,
-//                         ),
-//                         Padding(
-//                           padding: const EdgeInsets.all(16.0),
-//                           child: Container(
-//                             alignment: Alignment.topCenter,
-//                             // child: SvgPicture.asset(
-//                             //   'images/login.svg',
-//                             //   width: 260.0,
-//                             // )
-//                           ),
-//                         ),
-//                         Padding(
-//                           padding:
-//                               const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
-//                           child: Material(
-//                             borderRadius: BorderRadius.circular(10.0),
-//                             color: Colors.grey.withOpacity(0.2),
-//                             elevation: 0.0,
-//                             child: Padding(
-//                               padding: const EdgeInsets.only(left: 12.0),
-//                               child: TextFormField(
-//                                 controller: _email,
-//                                 decoration: InputDecoration(
-//                                   border: InputBorder.none,
-//                                   hintText: "Email",
-//                                   icon: Icon(Icons.alternate_email),
-//                                 ),
-//                                 validator: (value) {
-//                                   if (value!.isEmpty) {
-//                                     Pattern pattern =
-//                                         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-//                                     RegExp regex = new RegExp("${pattern}");
-//                                     if (!regex.hasMatch(value))
-//                                       return 'Please make sure your email address is valid';
-//                                     else
-//                                       return null;
-//                                   }
-//                                 },
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-//                         Padding(
-//                           padding:
-//                               const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
-//                           child: Material(
-//                             borderRadius: BorderRadius.circular(10.0),
-//                             color: Colors.grey.withOpacity(0.2),
-//                             elevation: 0.0,
-//                             child: Padding(
-//                               padding: const EdgeInsets.only(left: 12.0),
-//                               child: TextFormField(
-//                                 controller: _password,
-//                                 decoration: InputDecoration(
-//                                   border: InputBorder.none,
-//                                   hintText: "Password",
-//                                   icon: Icon(Icons.lock_outline),
-//                                 ),
-//                                 validator: (value) {
-//                                   if (value!.isEmpty) {
-//                                     return "The password field cannot be empty";
-//                                   } else if (value.length < 6) {
-//                                     return "the password has to be at least 6 characters long";
-//                                   }
-//                                   return null;
-//                                 },
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-//                         Padding(
-//                           padding:
-//                               const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
-//                           child: Material(
-//                               borderRadius: BorderRadius.circular(20.0),
-//                               color: Colors.black,
-//                               elevation: 0.0,
-//                               child: MaterialButton(
-//                                 onPressed: () async {
-//                                   if (_formKey.currentState!.validate()) {
-//                                     if (!await user.signIn(
-//                                         _email.text, _password.text))
-//                                       _key.currentState!.showSnackBar(SnackBar(
-//                                           content: Text("Sign in failed")));
-//                                   }
-//                                 },
-//                                 minWidth: MediaQuery.of(context).size.width,
-//                                 child: Text(
-//                                   "Login",
-//                                   textAlign: TextAlign.center,
-//                                   style: TextStyle(
-//                                       color: Colors.white,
-//                                       fontWeight: FontWeight.bold,
-//                                       fontSize: 20.0),
-//                                 ),
-//                               )),
-//                         ),
-//                         Row(
-//                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                           children: <Widget>[
-//                             Padding(
-//                               padding: const EdgeInsets.all(8.0),
-//                               child: Text(
-//                                 "Forgot password",
-//                                 textAlign: TextAlign.center,
-//                                 style: TextStyle(
-//                                   color: Colors.black,
-//                                   fontWeight: FontWeight.w400,
-//                                 ),
-//                               ),
-//                             ),
-//                             Padding(
-//                                 padding: const EdgeInsets.all(8.0),
-//                                 child: InkWell(
-//                                     // onTap: () {
-//                                     //   Navigator.push(
-//                                     //       context,
-//                                     //       MaterialPageRoute(
-//                                     //           builder: (context) => SignUp()));
-//                                     // },
-//                                     child: Text(
-//                                   "Create an account",
-//                                   textAlign: TextAlign.center,
-//                                   style: TextStyle(color: Colors.black),
-//                                 ))),
-//                           ],
-//                         ),
-//                         Padding(
-//                           padding: const EdgeInsets.all(16.0),
-//                           child: Row(
-//                             mainAxisAlignment: MainAxisAlignment.center,
-//                             children: <Widget>[
-//                               Padding(
-//                                 padding: const EdgeInsets.all(8.0),
-//                                 child: Text(
-//                                   "or sign in with",
-//                                   style: TextStyle(
-//                                       fontSize: 18, color: Colors.grey),
-//                                 ),
-//                               ),
-//                               Expanded(
-//                                 child: Padding(
-//                                   padding: const EdgeInsets.only(left: 9.0),
-//                                   child: MaterialButton(
-//                                       onPressed: () {},
-//                                       child: Image.asset(
-//                                         "images/gl.png",
-//                                         width: 60,
-//                                       )),
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ],
-//                     )),
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }

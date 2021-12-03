@@ -7,6 +7,7 @@ import 'package:rentify_all/rent_form/rentform.dart';
 import 'home.dart';
 
 class ProductDetails extends StatefulWidget {
+  final product_category;
   final product_details_name;
   final product_details_new_price;
   final product_details_old_price;
@@ -15,6 +16,7 @@ class ProductDetails extends StatefulWidget {
   ProductDetails(
       {this.product_details_name,
       this.product_details_new_price,
+      this.product_category,
       this.product_details_old_price,
       this.product_details_picture});
 
@@ -165,6 +167,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           axisDirection: AxisDirection.left,
                           transitionDuration: Duration(milliseconds: 300),
                           child: RentForm(
+                              product_categories: widget.product_category,
                               product_name: widget.product_details_name,
                               product_image: widget.product_details_picture)));
                     },
@@ -190,135 +193,135 @@ class _ProductDetailsState extends State<ProductDetails> {
 
           Divider(),
 
-          ListTile(
-            title: Text("Product details"),
-            subtitle: ProductInfo(
-              product_info: widget.product_details_name,
-            ),
-            // Text("The BMW X1 has 1 Diesel Engine and 1 Petrol Engine on offer.+"
-            //         "The Diesel engine is 1995 cc while the Petrol engine is 1998 cc ." +
-            //     "It is available with Automatic transmission.Depending upon the" +
-            //     "variant and fuel type the X1 has a mileage of 14.82 to 19.62 kmpl." +
-            //     "The X1 is a 5 seater 4 cylinder car and has length of 4447mm, width" +
-            //     "of 2060mm and a wheelbase of 2670mm."),
-          ),
+          // ListTile(
+          //   title: Text("Product details"),
+          //   subtitle: ProductInfo(
+          //     product_info: widget.product_details_name,
+          //   ),
+          //   // Text("The BMW X1 has 1 Diesel Engine and 1 Petrol Engine on offer.+"
+          //   //         "The Diesel engine is 1995 cc while the Petrol engine is 1998 cc ." +
+          //   //     "It is available with Automatic transmission.Depending upon the" +
+          //   //     "variant and fuel type the X1 has a mileage of 14.82 to 19.62 kmpl." +
+          //   //     "The X1 is a 5 seater 4 cylinder car and has length of 4447mm, width" +
+          //   //     "of 2060mm and a wheelbase of 2670mm."),
+          // ),
           Divider(),
-          ListTile(
-            title: Text("Key Specifications of BMW X1"),
-          ),
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.fromLTRB(12, 5.0, 5, 5),
-                child: Text(
-                  "Product name          :",
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-              Padding(
-                  padding: EdgeInsets.all(5.0),
-                  child: Text(widget.product_details_name)),
-            ],
-          ),
+          // ListTile(
+          //   title: Text("Key Specifications of BMW X1"),
+          // ),
+          // Row(
+          //   children: <Widget>[
+          //     Padding(
+          //       padding: EdgeInsets.fromLTRB(12, 5.0, 5, 5),
+          //       child: Text(
+          //         "Product name          :",
+          //         style: TextStyle(color: Colors.grey),
+          //       ),
+          //     ),
+          //     Padding(
+          //         padding: EdgeInsets.all(5.0),
+          //         child: Text(widget.product_details_name)),
+          //   ],
+          // ),
 
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.fromLTRB(12, 5.0, 5, 5),
-                child: Text(
-                  "Fuel Type                  :",
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-              //================remaimber to create product brand
-              Padding(padding: EdgeInsets.all(5.0), child: Text("Diesel")),
-            ],
-          ),
+          // Row(
+          //   children: <Widget>[
+          //     Padding(
+          //       padding: EdgeInsets.fromLTRB(12, 5.0, 5, 5),
+          //       child: Text(
+          //         "Fuel Type                  :",
+          //         style: TextStyle(color: Colors.grey),
+          //       ),
+          //     ),
+          //     //================remaimber to create product brand
+          //     Padding(padding: EdgeInsets.all(5.0), child: Text("Diesel")),
+          //   ],
+          // ),
 
           //----------add the product conditions
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.fromLTRB(12, 5.0, 5, 5),
-                child: Text(
-                  "Seating Capacity     :",
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-              Padding(padding: EdgeInsets.all(5.0), child: Text("5")),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.fromLTRB(12, 5.0, 5, 5),
-                child: Text(
-                  "Fuel Tank Capacity :",
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-              Padding(padding: EdgeInsets.all(5.0), child: Text("51.0")),
-            ],
-          ),
+          // Row(
+          //   children: <Widget>[
+          //     Padding(
+          //       padding: EdgeInsets.fromLTRB(12, 5.0, 5, 5),
+          //       child: Text(
+          //         "Seating Capacity     :",
+          //         style: TextStyle(color: Colors.grey),
+          //       ),
+          //     ),
+          //     Padding(padding: EdgeInsets.all(5.0), child: Text("5")),
+          //   ],
+          // ),
+          // Row(
+          //   children: <Widget>[
+          //     Padding(
+          //       padding: EdgeInsets.fromLTRB(12, 5.0, 5, 5),
+          //       child: Text(
+          //         "Fuel Tank Capacity :",
+          //         style: TextStyle(color: Colors.grey),
+          //       ),
+          //     ),
+          //     Padding(padding: EdgeInsets.all(5.0), child: Text("51.0")),
+          //   ],
+          // ),
           Divider(),
 
           //==================Key Features of BMW X1======================
-          ListTile(
-            title: Text("Key Features of BMW X1 :"),
-          ),
+          // ListTile(
+          //   title: Text("Key Features of ${widget.product_details_name} :"),
+          // ),
 
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.fromLTRB(12, 5.0, 5, 5),
-                child: Text(
-                  "Air Conditioner                     : ",
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-              Padding(padding: EdgeInsets.all(5.0), child: Text("Present")),
-            ],
-          ),
+          // Row(
+          //   children: <Widget>[
+          //     Padding(
+          //       padding: EdgeInsets.fromLTRB(12, 5.0, 5, 5),
+          //       child: Text(
+          //         "Air Conditioner                     : ",
+          //         style: TextStyle(color: Colors.grey),
+          //       ),
+          //     ),
+          //     Padding(padding: EdgeInsets.all(5.0), child: Text("Present")),
+          //   ],
+          // ),
 
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.fromLTRB(12, 5.0, 5, 5),
-                child: Text(
-                  "Anti Lock Braking System  :",
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-              //================remaimber to create product brand
-              Padding(padding: EdgeInsets.all(5.0), child: Text(" Present")),
-            ],
-          ),
+          // Row(
+          //   children: <Widget>[
+          //     Padding(
+          //       padding: EdgeInsets.fromLTRB(12, 5.0, 5, 5),
+          //       child: Text(
+          //         "Anti Lock Braking System  :",
+          //         style: TextStyle(color: Colors.grey),
+          //       ),
+          //     ),
+          //     //================remaimber to create product brand
+          //     Padding(padding: EdgeInsets.all(5.0), child: Text(" Present")),
+          //   ],
+          // ),
 
-          //----------add the product conditions
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.fromLTRB(12, 5.0, 5, 5),
-                child: Text(
-                  "Power Steering                     :",
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-              Padding(padding: EdgeInsets.all(5.0), child: Text("Present")),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.fromLTRB(12, 5.0, 5, 5),
-                child: Text(
-                  "Automatic Climate Control :",
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-              Padding(padding: EdgeInsets.all(5.0), child: Text("Present")),
-            ],
-          ),
+          // //----------add the product conditions
+          // Row(
+          //   children: <Widget>[
+          //     Padding(
+          //       padding: EdgeInsets.fromLTRB(12, 5.0, 5, 5),
+          //       child: Text(
+          //         "Power Steering                     :",
+          //         style: TextStyle(color: Colors.grey),
+          //       ),
+          //     ),
+          //     Padding(padding: EdgeInsets.all(5.0), child: Text("Present")),
+          //   ],
+          // ),
+          // Row(
+          //   children: <Widget>[
+          //     Padding(
+          //       padding: EdgeInsets.fromLTRB(12, 5.0, 5, 5),
+          //       child: Text(
+          //         "Automatic Climate Control :",
+          //         style: TextStyle(color: Colors.grey),
+          //       ),
+          //     ),
+          //     Padding(padding: EdgeInsets.all(5.0), child: Text("Present")),
+          //   ],
+          // ),
 
           Divider(),
           Padding(

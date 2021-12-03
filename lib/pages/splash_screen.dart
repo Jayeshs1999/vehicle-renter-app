@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:rentify_all/pages/categories.dart';
 import 'package:rentify_all/pages/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -14,13 +16,12 @@ class _splashScreenBody extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(
-        Duration(seconds: 5),
-        () => {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Login(uname: "Hello User", uemail: "");
-              }))
-            });
+    Timer(Duration(seconds: 3), () {
+      Dicision();
+      // Navigator.push(context, MaterialPageRoute(builder: (context) {
+      //   return Login(uname: "Hello User", uemail: "");
+      // }));
+    });
   }
 
   @override
@@ -84,5 +85,24 @@ class _splashScreenBody extends State<SplashScreen> {
         ],
       ),
     );
+  }
+
+  void Dicision() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var email = preferences.getString('email');
+    var name = preferences.getString('name');
+    // if (name == null) {
+    //   name = email!.substring(0, 7);
+    // }
+    email == null
+        ? Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return Login(
+              uemail: email.toString(),
+              uname: name.toString(),
+            );
+          }))
+        : Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return Categories(email: email, name: "${name.toString()}...");
+          }));
   }
 }
